@@ -4,19 +4,43 @@ import { TunnelifyLocalServer } from "@mikesposito/tunnelify-local-server";
 import { input } from './constants/input';
 import path from 'path';
 
-// Init Tunnelify Cli
-const cli = new TunnelifyCli(input);
+export interface ITunnelify {
+	cli: TunnelifyCli;
+	localServer: TunnelifyLocalServer;
+	run(): void;
+}
 
-// Use default port if not provided
-if(!cli.command.port)
-	cli.command.port = 32000;
+export class Tunnelify implements ITunnelify {
+	cli: TunnelifyCli;
+	localServer: TunnelifyLocalServer;
 
-// Log something
-console.log(`Running on local on address: http://localhost${cli.command.port == 80 ? "" : `:${cli.command.port}`}`);
-if(cli.command.ssl)
-	console.log(`SSL ENABLED`)
+	constructor() {
+		// Init Tunnelify Cli
+		this.cli = new TunnelifyCli(input);
+		this.cli.log("Created new Tunnelify client");
+		// Use default port if not provided
+		if(!this.cli.command.port)
+			this.cli.command.port = 32000;
+		// Init Tunnelify local server
+		this.cli.log(`Bootstrapping on local on address: ${this.cli.command.ssl ? "https" : "http"}://${this.cli.command.host || "localhost"}${this.cli.command.port == 80 ? "" : `:${this.cli.command.port}`}`);
+		this.localServer = new TunnelifyLocalServer(this.cli)
+			.mount(path.resolve(this.cli.command.src))
+	}
 
-// Start Tunnelify local server
-const localServer = new TunnelifyLocalServer()
-	.mount(path.resolve(cli.command.src))
-	.listen(cli.command.port);
+	async run() {
+		if(this.cli.command.ssl) {
+			this.cli.log("SSL Enabled. Generating and trusting new certificates");
+			// Tell Tunnelify Local Server to use SSL and generate certificates
+			await this.localServer.useSSL(this.cli.command.host);
+		}
+		this.cli.success("Starting local server");
+		this.localServer.listen(this.cli.command.port);
+	}
+}
+
+// Run if called from terminal
+if(require.main === module)
+	new Tunnelify()
+		.run()
+		.then(() => {})
+		.catch(() => process.exit(1));

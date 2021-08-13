@@ -1,14 +1,17 @@
 import CommandLineArgs from 'command-line-args';
+import 'colorts/lib/string';
 
-type CommandLineOption = {
+export type CommandLineOption = {
 	flags: any[];
 	src: any[];
 }
 
-type TunnelifyCliConfiguration = {
+export type TunnelifyCliConfiguration = {
 	src: string;
 	port: number;
 	ssl: boolean;
+	host: string;
+	verbose: string;
 }
 
 export class TunnelifyCli {
@@ -20,5 +23,21 @@ export class TunnelifyCli {
 		const main = CommandLineArgs(options.src, { argv, stopAtFirstUnknown: true });
 		this.command = { ...flags, ...main };
 		return this;
+	}
+
+	info(msg) {
+		console.log(">".blue, msg);
+	}
+
+	success(msg) {
+		console.log(">".green, msg);
+	}
+
+	log(msg) {
+		console.log(">".grey, msg.grey);
+	}
+
+	error(msg) {
+		console.log(">".red, msg);
 	}
 }

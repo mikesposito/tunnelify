@@ -20,6 +20,7 @@
   "author": "Michele Esposito",
   "license": "ISC",
   "dependencies": {
+    "@mikesposito/tunnelify-cli": "0.0.2-alpha.2",
     "express": "^4.17.1"
   },
   "devDependencies": {
