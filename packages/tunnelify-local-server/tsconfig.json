@@ -14,14 +14,6 @@
     "rootDir": "./src",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true,
-    "paths": {
-      "@mikesposito/tunnelify-local-server": ["../tunnelify-local-server/src"],
-      "@mikesposito/tunnelify-cli": ["../tunnelify-cli/src"],
-    }
-  },
-  "references": [
-    { "path": "../tunnelify-local-server" },
-    { "path": "../tunnelify-cli" }
-  ]
+    "skipLibCheck": true
+  }
 }

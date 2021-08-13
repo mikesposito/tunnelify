@@ -1,0 +1,25 @@
+{
+  "name": "@mikesposito/tunnelify-cli",
+  "version": "0.0.2-alpha.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "serve": "tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mikesposito/tunnelify.git"
+  },
+  "author": "Michele Esposito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikesposito/tunnelify/issues"
+  },
+  "homepage": "https://github.com/mikesposito/tunnelify#readme",
+  "dependencies": {
+    "command-line-args": "^5.2.0"
+  }
+}
