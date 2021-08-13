@@ -5,6 +5,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "readme": "./README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mikesposito/tunnelify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mikesposito/tunnelify/issues"
+  },
+  "homepage": "https://github.com/mikesposito/tunnelify#readme",
   "bin": {
     "tunnelify": "./dist/index.js"
   },
@@ -13,7 +21,7 @@
     "serve": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Michele Esposito",
   "license": "ISC",
   "dependencies": {
     "command-line-args": "^5.2.0",
