@@ -1,5 +1,5 @@
 # Tunnelify
-### A simple tool that exposes static folders from your local machine to the web
+A simple tool that exposes static folders from your local machine to the web
 
 ## Install
 `npm install -g @mikesposito/tunnelify`
