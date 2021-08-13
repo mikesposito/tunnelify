@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "readme": "./README.md",
   "bin": {
     "tunnelify": "./dist/index.js"
   },
