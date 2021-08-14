@@ -1,6 +1,6 @@
 {
   "name": "@mikesposito/tunnelify-cli",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.3-alpha.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
     "url": "git+ssh://git@github.com/mikesposito/tunnelify.git"
   },
   "author": "Michele Esposito",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikesposito/tunnelify/issues"
   },
