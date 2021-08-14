@@ -20,8 +20,8 @@ A simple tool that exposes static folders from your local machine to the web
 
 #### WIP
 
-- Generate SSL certificates
-- Create a remote accesible url
+- Generate SSL certificates for local server
+- Create a remotely accesible url
 - Expose your local tunnelify server on the remote url
 
 ## Install
@@ -29,19 +29,33 @@ A simple tool that exposes static folders from your local machine to the web
 With npm:
 
 ```bash
-npm install -g @mikesposito/tunnelify
+$ npm install -g @mikesposito/tunnelify
 ```
 
 ## Usage
 
+Tunnelify only requires an absolute or relative path of the directory containing files you want to expose:
+
 ```bash
-tunnelify -p <PORT> <PATH_TO_EXPOSE>
+$ tunnelify <PATH>
+```
+
+You can use `-p <PORT>` to use a custom port number for the local server:
+
+```bash
+$ tunnelify -p <PORT> <PATH>
 ```
 
 ## Examples
 
+#### Minimal:
 ```bash
-tunnelify -p 3000 ./dist
+$ tunnelify ./my-folder
+```
+
+#### With custom port:
+```bash
+$ tunnelify -p 3000 ./my-folder
 ```
 
 ## Contributing
