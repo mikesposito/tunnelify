@@ -1,13 +1,13 @@
 {
   "name": "@mikesposito/tunnelify-cli-test",
-  "version": "0.0.3-alpha.1",
+  "version": "0.0.3-alpha.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@mikesposito/tunnelify": "^0.0.3-alpha.1"
+    "@mikesposito/tunnelify": "^0.0.3-alpha.2"
   },
   "author": "",
   "license": "ISC"
