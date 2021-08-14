@@ -38,7 +38,7 @@ npm install -g @mikesposito/tunnelify
 tunnelify -p <PORT> <PATH_TO_EXPOSE>
 ```
 
-## Example
+## Examples
 
 ```bash
 tunnelify -p 3000 ./dist
