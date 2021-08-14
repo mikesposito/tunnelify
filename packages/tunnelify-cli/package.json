@@ -14,7 +14,7 @@
     "url": "git+ssh://git@github.com/mikesposito/tunnelify.git"
   },
   "author": "Michele Esposito",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikesposito/tunnelify/issues"
   },
