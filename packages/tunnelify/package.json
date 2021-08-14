@@ -16,6 +16,7 @@
   "bin": {
     "tunnelify": "./dist/index.js"
   },
+  "keywords": ["tunnelify", "serve", "expose", "files"],
   "scripts": {
     "build": "tsc",
     "serve": "tsc --watch",
