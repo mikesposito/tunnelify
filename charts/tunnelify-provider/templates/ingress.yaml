@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: "{{ .Chart.Name }}-ingress"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "cluster-le-issuer"
+spec:
+  tls:
+    - hosts:
+        - "{{ .Values.ingress }}"
+      secretName: "{{ .Chart.Name }}-tls-le-key"
+  rules:
+  - host: "{{ .Values.ingress }}"
+    http:
+      paths:
+      - backend:
+          serviceName: "{{ .Chart.Name }}-service"
+          servicePort: {{ .Values.service.servicePort }}

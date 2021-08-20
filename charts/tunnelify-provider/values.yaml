@@ -1,0 +1,47 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+revisionHistoryLimit: 1
+
+ingress: tnlfy.live
+
+image:
+  repository: mikesposito/tunnelify-provider
+  tag: latest
+  pullPolicy: "Always"
+  resources:
+    requests:
+      cpu: 150m
+      memory: 150Mi
+    limits:
+      cpu: 150m
+      memory: 150Mi
+  readinessProbe: {}
+  # Example (replace readinessProbe: {} with the following):
+  # readinessProbe:
+  #   httpGet:
+  #     path: /ready
+  #     port: 3000
+  #   initialDelaySeconds: 3
+  #   periodSeconds: 5
+  livenessProbe: {}
+  # Example (replace livenessProbe: {} with the following)::
+  # livenessProbe:
+  #   httpGet:
+  #     path: /live
+  #     port: 3000
+  #   initialDelaySeconds: 40
+  #   periodSeconds: 10
+service:
+  name: tunnelify-provider
+  type: ClusterIP
+  servicePort: 80
+hpa:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    cpu:
+      targetAverageUtilization: 70
+    memory:
+      targetAverageUtilization: 70
