@@ -8,10 +8,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "{{ .Values.ingress }}"
+        - "*.{{ .Values.ingress }}"
       secretName: "{{ .Chart.Name }}-tls-le-key"
   rules:
-  - host: "{{ .Values.ingress }}"
+  - host: "*.{{ .Values.ingress }}"
     http:
       paths:
       - backend:
