@@ -1,10 +1,9 @@
 {
   "name": "@mikesposito/tunnelify",
   "version": "0.0.3-alpha.2",
-  "description": "",
+  "description": "A simple tool that exposes static folders from your local machine to the web",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "readme": "./README.md",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/mikesposito/tunnelify.git"
@@ -23,15 +22,18 @@
     "files"
   ],
   "scripts": {
+    "start": "node dist/index.js",
     "build": "tsc",
     "serve": "tsc --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Michele Esposito",
+  "author": "Michele Esposito<michele@esposito.codes>",
   "license": "MIT",
   "dependencies": {
     "@mikesposito/tunnelify-cli": "^0.0.3-alpha.1",
-    "@mikesposito/tunnelify-local-server": "^0.0.3-alpha.1"
+    "@mikesposito/tunnelify-local-server": "^0.0.3-alpha.1",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "^4.1.3"
   },
   "devDependencies": {
     "@types/node": "^16.6.1",

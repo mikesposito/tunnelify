@@ -1,7 +1,7 @@
 {
   "name": "@mikesposito/tunnelify-cli",
   "version": "0.0.3-alpha.1",
-  "description": "",
+  "description": "A simple tool that exposes static folders from your local machine to the web",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+ssh://git@github.com/mikesposito/tunnelify.git"
   },
-  "author": "Michele Esposito",
+  "author": "Michele Esposito<michele@esposito.codes>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikesposito/tunnelify/issues"
