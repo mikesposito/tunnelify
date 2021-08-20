@@ -1,0 +1,1 @@
+export const DEFAULT_REMOTE = "https://tnlfy.live";

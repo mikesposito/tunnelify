@@ -25,21 +25,6 @@ export const input: CommandLineOption = {
 			alias: 'v',
 			type: Boolean
 		},
-		{
-			name: 'remote',
-			alias: 'r',
-			type: String
-		},
-		{
-			name: "name",
-			alias: "n",
-			type: String
-		}
 	],
-	src: [
-		{
-			name: "src",
-			defaultOption: true
-		}
-	]
+	src: []
 }

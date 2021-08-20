@@ -12,6 +12,8 @@ export type TunnelifyCliConfiguration = {
 	ssl: boolean;
 	host: string;
 	verbose: string;
+	remote: string;
+	name: string;
 }
 
 export class TunnelifyCli {
@@ -26,7 +28,7 @@ export class TunnelifyCli {
 	}
 
 	info(msg) {
-		console.log(">".blue, msg);
+		console.log(">".cyan, msg);
 	}
 
 	success(msg) {
