@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@mikesposito/tunnelify": "^0.0.3",
-    "@mikesposito/tunnelify-remote-server": "^0.0.3-alpha.2"
+    "@mikesposito/tunnelify-provider": "^0.0.3"
   },
   "author": "",
   "license": "ISC"
