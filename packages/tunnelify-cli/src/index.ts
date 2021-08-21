@@ -6,40 +6,61 @@ export type CommandLineOption = {
 	src: any[];
 }
 
+export type CommandLineArgs = {
+	flags: {
+		host?: string;
+		port?: number;
+		verbose?: boolean;
+		silent?: boolean;
+		remote?: string;
+		name?: string;
+	};
+	src?: string;
+}
+
 export type TunnelifyCliConfiguration = {
 	src: string;
-	port: number;
-	ssl: boolean;
-	host: string;
-	verbose: string;
-	remote: string;
-	name: string;
+	port?: number;
+	ssl?: boolean;
+	host?: string;
+	verbose?: string;
+	silent?: boolean;
+	remote?: string;
+	name?: string;
 }
 
 export class TunnelifyCli {
 	command: TunnelifyCliConfiguration;
 
-	constructor(options: CommandLineOption) {
-		const flags = CommandLineArgs(options.flags, { stopAtFirstUnknown: true });
-		const argv = flags._unknown || [];
-		const main = CommandLineArgs(options.src, { argv, stopAtFirstUnknown: true });
-		this.command = { ...flags, ...main };
+	constructor(options: CommandLineOption | CommandLineArgs, cli: boolean = true) {
+		if(cli) {
+			const flags = CommandLineArgs(options.flags, { stopAtFirstUnknown: true });
+			const argv = flags._unknown || [];
+			const main = CommandLineArgs(options.src, { argv, stopAtFirstUnknown: true });
+			this.command = { ...flags, ...main };
+		} else {
+			this.command = { ...options.flags, src: options.src };
+		}
 		return this;
 	}
 
 	info(msg) {
-		console.log(">".cyan, msg);
+		if(!this.command.silent)
+			console.log(">".cyan, msg);
 	}
 
 	success(msg) {
-		console.log(">".green, msg);
+		if(!this.command.silent)
+			console.log(">".green, msg);
 	}
 
 	log(msg) {
-		console.log(">".grey, msg.grey);
+		if(!this.command.silent)
+			console.log(">".grey, msg.grey);
 	}
 
 	error(msg) {
-		console.log(">".red, msg);
+		if(!this.command.silent)
+			console.log(">".red, msg);
 	}
 }

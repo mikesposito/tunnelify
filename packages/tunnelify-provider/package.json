@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "tunnelify-server": "./dist/index.js"
+    "tunnelify-provider": "./dist/cli.js"
   },
   "repository": {
     "type": "git",

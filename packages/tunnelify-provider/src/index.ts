@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { Server, Socket } from 'socket.io';
-import express, { Application, Request, Response } from 'express';
+import express, {Application, NextFunction, Request, Response} from 'express';
 import http from 'http';
 import https from 'https';
-import {TunnelifyCli} from "@mikesposito/tunnelify-cli";
+import {CommandLineArgs, TunnelifyCli} from "@mikesposito/tunnelify-cli";
 import { input } from "./constants/input";
 
 export interface ITunnelifyTransportableFile {
@@ -14,23 +14,26 @@ export interface ITunnelifyTransportableFile {
 
 export interface ITunnelifyProvider {
 	app: Application;
+	connection: any;
 	port: number;
 	server: http.Server | https.Server;
 	io: any;
 	rooms: any;
-	run(port: number): void;
+	run(port: number): Promise<TunnelifyProvider>;
+	stop(): void;
 }
 
 export class TunnelifyProvider implements ITunnelifyProvider {
 	app: Application;
+	connection: any;
 	port: number;
 	cli: TunnelifyCli;
 	server: http.Server | https.Server;
 	rooms: any = {};
 	io: any;
 
-	constructor() {
-		this.cli = new TunnelifyCli(input);
+	constructor(options?: CommandLineArgs) {
+		this.cli = new TunnelifyCli(options || input, !options);
 		if(!this.cli.command.host)
 			throw new Error("No host specified. Please choose one with option -h <HOST>");
 		this.port = this.cli.command.port || 9410;
@@ -39,14 +42,24 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 		this.app = express();
 		this.server = http.createServer(this.app);
 		this.io = new Server(this.server);
+		this.app.use("/health", this._healthCheck.bind(this));
 		this.app.use("/:path", this.handleFileRequest.bind(this));
 	}
 
-	run() {
-		this.server.listen(this.port, () => {
-			this.cli.success(`Tunnelify Remote Server listening on ${this.cli.command.port || 9410}`);
-			this.io.on("connection", this.handleConnection.bind(this));
-		});
+	run(): Promise<TunnelifyProvider> {
+		return new Promise((resolve, reject) => {
+			let connection = this.server.listen(this.port, () => {
+				this.cli.success(`Tunnelify Remote Server listening on ${this.cli.command.port || 9410}`);
+				this.io.on("connection", this.handleConnection.bind(this));
+				this.connection = connection;
+				resolve(this);
+			});
+		})
+	}
+
+	stop() {
+		this.server.close();
+		this.connection.close();
 	}
 
 	handleConnection(socket: Socket) {
@@ -79,6 +92,16 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 		}
 	}
 
+	private _healthCheck(req: Request, res: Response, next: NextFunction) {
+		// Check that it's not a tunnel file
+		if(req.hostname !== this.cli.command.host) {
+			res.status(200).send();
+			return;
+		} else {
+			next();
+		}
+	}
+
 	private _generateRandomName(length: number = 5): string {
 		let result           = '';
 		const characters       = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -98,6 +121,3 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 		return generated;
 	}
 }
-
-new TunnelifyProvider()
-	.run()

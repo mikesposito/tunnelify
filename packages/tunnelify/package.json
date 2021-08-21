@@ -13,7 +13,7 @@
   },
   "homepage": "https://github.com/mikesposito/tunnelify#readme",
   "bin": {
-    "tunnelify": "./dist/index.js"
+    "tunnelify": "./dist/cli.js"
   },
   "keywords": [
     "tunnelify",
@@ -25,7 +25,7 @@
     "start": "node dist/index.js",
     "build": "tsc",
     "serve": "tsc --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --collect-coverage"
   },
   "author": "Michele Esposito<michele@esposito.codes>",
   "license": "MIT",

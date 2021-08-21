@@ -34,6 +34,12 @@ export const input: CommandLineOption = {
 			name: "name",
 			alias: "n",
 			type: String
+		},
+		{
+			name: "silent",
+			alias: "silent",
+			type: Boolean,
+			defaultOption: false
 		}
 	],
 	src: [

@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "commonjs",
     "composite": true,
@@ -23,5 +24,6 @@
   "references": [
     { "path": "../tunnelify-local-server" },
     { "path": "../tunnelify-cli" }
-  ]
+  ],
+  "include": ["./src/**/*"]
 }

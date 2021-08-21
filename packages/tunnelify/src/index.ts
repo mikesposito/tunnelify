@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { TunnelifyCli } from "@mikesposito/tunnelify-cli";
+import {CommandLineArgs, TunnelifyCli} from "@mikesposito/tunnelify-cli";
 import { TunnelifyLocalServer } from "@mikesposito/tunnelify-local-server";
 import io from 'socket.io-client';
 import { input } from './constants/input';
@@ -8,6 +8,7 @@ import {DEFAULT_REMOTE} from "./constants/remote";
 
 export interface ITunnelify {
 	cli: TunnelifyCli;
+	tunnel: ITunnelifyTunnel;
 	localServer: TunnelifyLocalServer;
 	run(): void;
 }
@@ -19,30 +20,31 @@ export interface ITunnelifyTunnel {
 
 export class Tunnelify implements ITunnelify {
 	cli: TunnelifyCli;
+	tunnel: ITunnelifyTunnel;
 	localServer: TunnelifyLocalServer;
 	io: any;
 
-	constructor() {
+	constructor(options?: CommandLineArgs) {
 		// Init Tunnelify Cli
-		this.cli = new TunnelifyCli(input);
+		this.cli = new TunnelifyCli(options || input, !options);
 		this.cli.log("Created new Tunnelify client");
 		// Use default port if not provided
 		if(!this.cli.command.port)
 			this.cli.command.port = 32000;
 		// Init Tunnelify local server
 		this._bootstrapLocalServer();
+	}
+
+	async run() {
+		this.cli.log("Starting local server");
+		await this.localServer.listen(this.cli.command.port);
 		// Init remote connection
 		this._bootstrapTunnel();
 	}
 
-	async run() {
-		if(this.cli.command.ssl) {
-			this.cli.log("SSL Enabled. Generating and trusting new certificates");
-			// Tell Tunnelify Local Server to use SSL and generate certificates
-			await this.localServer.useSSL(this.cli.command.host);
-		}
-		this.cli.log("Starting local server");
-		this.localServer.listen(this.cli.command.port);
+	stop() {
+		this.localServer.stop();
+		this.io.disconnect();
 	}
 
 	private _bootstrapLocalServer() {
@@ -65,15 +67,9 @@ export class Tunnelify implements ITunnelify {
 	}
 
 	private _logTunnelInfo(tunnel: ITunnelifyTunnel) {
+		this.tunnel = tunnel;
 		this.cli.success(`Tunnel ready`);
 		this.cli.success(`HTTP\t\thttp://${tunnel.url}`);
 		this.cli.success(`HTTPS\t\thttps://${tunnel.url}`);
 	}
 }
-
-// Run if called from terminal
-if(require.main === module)
-	new Tunnelify()
-		.run()
-		.then(() => {})
-		.catch(() => process.exit(1));
