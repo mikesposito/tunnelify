@@ -8,16 +8,9 @@ spec:
   tls:
     - hosts:
         - "{{ .Values.ingress }}"
-        - "*.{{ .Values.ingress }}"
       secretName: "{{ .Chart.Name }}-tls-le-key"
   rules:
   - host: "{{ .Values.ingress }}"
-    http:
-      paths:
-      - backend:
-          serviceName: "{{ .Chart.Name }}-service"
-          servicePort: {{ .Values.service.servicePort }}
-  - host: "*.{{ .Values.ingress }}"
     http:
       paths:
       - backend:
