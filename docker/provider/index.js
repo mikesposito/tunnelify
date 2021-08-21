@@ -1,1 +1,0 @@
-const provider = require("@mikesposito/tunnelify-provider");
