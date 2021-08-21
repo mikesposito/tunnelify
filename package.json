@@ -15,6 +15,7 @@
     "test/*"
   ],
   "devDependencies": {
+    "@types/jest": "^27.0.1",
     "axios": "^0.21.1",
     "jest": "^27.0.6",
     "lerna": "^4.0.0",
