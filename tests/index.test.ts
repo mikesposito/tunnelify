@@ -10,8 +10,8 @@ import axios, { AxiosError } from 'axios';
 
 const REMOTE_SELF_URL = "local.127.0.0.1.nip.io";
 const REMOTE_SELF_PORT = 19410;
-const SILENT = false;
-const VERBOSE_LOG = true;
+const SILENT = true;
+const VERBOSE_LOG = false;
 let app: Tunnelify;
 let provider: TunnelifyProvider;
 let agent;
@@ -40,12 +40,71 @@ describe("Command line run", () => {
 		const tunnelifyLocalServer = new TunnelifyLocalServer(tunnelifyCli);
 		const tunnelifyInstance = new Tunnelify({
 			src: path.resolve(__dirname, "./__mocks__/local-server"),
-			flags: {}
+			flags: {
+				silent: true
+			}
 		});
 		done();
 	});
 });
 
+describe("Strange directories name handling", () => {
+	let tunnelify: Tunnelify;
+	let tunnelifyProvider: TunnelifyProvider;
+
+	beforeAll(() => {
+		return new Promise<void>(async (resolve, reject) => {
+			tunnelify = new Tunnelify({
+				src: path.resolve(__dirname, "./__mocks__/MY_strAngeDiR"),
+				flags: {
+					remote: `http://${REMOTE_SELF_URL}:20412`,
+					port: 20411,
+					silent: true,
+					verbose: false
+				}
+			});
+			tunnelifyProvider = new TunnelifyProvider({
+				flags: {
+					host: REMOTE_SELF_URL,
+					port: 20412,
+					silent: true
+				}
+			});
+			await tunnelifyProvider.run();
+			await tunnelify.run();
+			const awaiter = setInterval(() => {
+				// check if there's a tunnel
+				if(tunnelify.tunnel) {
+					clearInterval(awaiter);
+					resolve();
+				}
+			}, 10);
+		});
+	});
+
+	it("Should handle CAPS dirs correctly", () => {
+		return new Promise<void>(async (resolve, reject) => {
+			const tunnelName = tunnelify.tunnel.name;
+			request(`http://${tunnelName}.${REMOTE_SELF_URL}:${20412}`)
+				.get("/file.txt")
+				.then(response => {
+					const realContent = fs.readFileSync(path.resolve(__dirname, "./__mocks__/MY_strAngeDiR/file.txt"), { encoding: "utf-8" });
+					expect(response.status).toBe(200);
+					expect(response.text).toBe(realContent);
+					resolve();
+				})
+				.catch(e => reject(e));
+		});
+	});
+
+	afterAll((done) => {
+		tunnelify.stop();
+		tunnelifyProvider.stop();
+		setTimeout(() => {
+			done();
+		}, 100);
+	})
+});
 
 describe("Client & Provider API run", () => {
 	beforeAll(() => {
@@ -62,7 +121,7 @@ describe("Client & Provider API run", () => {
 
 			const tunnelifyProvider = new TunnelifyProvider({
 				flags: {
-					host: `${REMOTE_SELF_URL}`,
+					host: REMOTE_SELF_URL,
 					port: REMOTE_SELF_PORT,
 					silent: SILENT
 				}
@@ -73,10 +132,13 @@ describe("Client & Provider API run", () => {
 			agent = request.agent(tunnelify.localServer.connection);
 			app = tunnelify;
 			provider = tunnelifyProvider;
-			setTimeout(() => {
-				// give a second to let client and remote connect
-				resolve();
-			}, 1000);
+			const awaiter = setInterval(() => {
+				// check if there's a tunnel
+				if(tunnelify.tunnel) {
+					clearInterval(awaiter);
+					resolve();
+				}
+			}, 10);
 		})
 	});
 
@@ -92,15 +154,16 @@ describe("Client & Provider API run", () => {
 		});
 	});
 
-	it("Should setup a Tunnelify Provider", (done) => {
-		axios.get(`http://${REMOTE_SELF_URL}:${REMOTE_SELF_PORT}/health`)
-			.then(response => {
-				expect(response.status).toBe(200);
-				done(false);
-			})
-			.catch((e: AxiosError) => {
-				done(false);
-			});
+	it("Should setup a Tunnelify Provider", () => {
+		return new Promise<void>((resolve, reject) => {
+			request(`http://${REMOTE_SELF_URL}:${REMOTE_SELF_PORT}`)
+				.get(`/health`)
+				.then(response => {
+					expect(response.status).toBe(200);
+					resolve();
+				})
+				.catch((e) => reject(e));
+		})
 	});
 
 	it("Tunnelify Provider should return 404 for a wrong file name", () => {

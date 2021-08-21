@@ -63,8 +63,8 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 	}
 
 	handleConnection(socket: Socket) {
-		const requestedName = socket.handshake.query.name;
-		const name = this._assignName(requestedName ? `${requestedName}-` : null);
+		const requestedName: string | string[] = socket.handshake.query.name;
+		const name = this._assignName(requestedName ? `${requestedName.toString().toLowerCase()}-` : null);
 		socket.join(name);
 		this.rooms[name as string] = socket;
 		socket.emit("tunnelified", {
