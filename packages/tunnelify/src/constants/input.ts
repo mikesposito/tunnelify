@@ -11,11 +11,6 @@ export const input: CommandLineOption = {
 			defaultOption: 32000
 		},
 		{
-			name: 'ssl',
-			alias: 's',
-			type: Boolean
-		},
-		{
 			name: 'host',
 			alias: 'h',
 			type: String
@@ -37,7 +32,7 @@ export const input: CommandLineOption = {
 		},
 		{
 			name: "silent",
-			alias: "silent",
+			alias: "s",
 			type: Boolean,
 			defaultOption: false
 		}

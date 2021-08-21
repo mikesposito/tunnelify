@@ -1,12 +1,12 @@
 import { Tunnelify } from "../packages/tunnelify/src";
 import { TunnelifyProvider } from "../packages/tunnelify-provider/src";
 import { TunnelifyCli } from "../packages/tunnelify-cli/src";
+import { TunnelifyLocalServer } from "../packages/tunnelify-local-server/src";
 import { input as tunnelifyProviderCliInputs} from "../packages/tunnelify-provider/src/constants/input";
 import * as fs from 'fs';
 import * as path from 'path';
 import request from "supertest";
 import axios, { AxiosError } from 'axios';
-import {TunnelifyLocalServer} from "@mikesposito/tunnelify-local-server";
 
 const REMOTE_SELF_URL = "local.127.0.0.1.nip.io";
 const REMOTE_SELF_PORT = 19410;
@@ -45,6 +45,7 @@ describe("Command line run", () => {
 		done();
 	});
 });
+
 
 describe("Client & Provider API run", () => {
 	beforeAll(() => {
