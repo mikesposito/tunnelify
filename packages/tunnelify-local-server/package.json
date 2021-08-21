@@ -1,6 +1,6 @@
 {
   "name": "@mikesposito/tunnelify-local-server",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple tool that exposes static folders from your local machine to the web",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,7 @@
   "author": "Michele Esposito<michele@esposito.codes>",
   "license": "MIT",
   "dependencies": {
-    "@mikesposito/tunnelify-cli": "^0.0.3",
+    "@mikesposito/tunnelify-cli": "^0.0.4",
     "express": "^4.17.1",
     "supertest": "^6.1.6"
   },
