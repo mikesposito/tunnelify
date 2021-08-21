@@ -7,7 +7,7 @@ ingress: tnlfy.live
 
 image:
   repository: mikesposito/tunnelify-provider
-  tag: latest
+  tag: 0.0.9
   pullPolicy: "Always"
   resources:
     requests:
@@ -16,22 +16,18 @@ image:
     limits:
       cpu: 150m
       memory: 150Mi
-  readinessProbe: {}
-  # Example (replace readinessProbe: {} with the following):
-  # readinessProbe:
-  #   httpGet:
-  #     path: /ready
-  #     port: 3000
-  #   initialDelaySeconds: 3
-  #   periodSeconds: 5
-  livenessProbe: {}
-  # Example (replace livenessProbe: {} with the following)::
-  # livenessProbe:
-  #   httpGet:
-  #     path: /live
-  #     port: 3000
-  #   initialDelaySeconds: 40
-  #   periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 80
+    initialDelaySeconds: 3
+    periodSeconds: 5
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 80
+    initialDelaySeconds: 40
+    periodSeconds: 10
 service:
   name: tunnelify-provider
   type: ClusterIP
