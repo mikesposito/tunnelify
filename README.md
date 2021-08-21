@@ -4,6 +4,8 @@
 
 A simple tool that exposes static folders from your local machine to the web
 
+![Concept Image](https://tunnelify.s3.eu-west-1.amazonaws.com/concept.png)
+
 ## Table of Contents
 
 - [Features](#features)
@@ -11,7 +13,7 @@ A simple tool that exposes static folders from your local machine to the web
 - [Usage](#usage)
   - [Command Line](#with-command-line)
   - [From another application](#from-another-application)
-- [Use a Custom Remote Domain](#use-a-custom-remote-domain)  
+- [Use a Custom Remote Domain](#use-a-custom-remote-domain)
 - [Examples](#examples)
 - [Contributing](#contributing)
 
@@ -77,7 +79,7 @@ $ tunnelify -r <REMOTE_PROVIDER_URL> <PATH>
 ### From another application
 
 Tunnelify can also be used from other javascript applications.
-You can use the main Tunnelify class to instantiate a tunnel: 
+You can use the main Tunnelify class to instantiate a tunnel:
 
 ```javascript
 const tunnelify = new Tunnelify({
@@ -123,7 +125,7 @@ $ npm install -g @mikesposito/tunnelify-provider
 ```bash
 $ tunnelify-provider -h <HOSTNAME>
 ```
-Where `<HOSTNAME>` should be your domain. 
+Where `<HOSTNAME>` should be your domain.
 #### Example:
 ```bash
 $ tunnelify-provider -h my-domain.com
