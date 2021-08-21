@@ -99,7 +99,7 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 
 	private _healthCheck(req: Request, res: Response, next: NextFunction) {
 		// Check that it's not a tunnel file
-		if(req.hostname !== this.cli.command.host) {
+		if(!req.hostname.includes("-")) {
 			res.status(200).send();
 			return;
 		} else {
