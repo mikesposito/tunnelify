@@ -25,12 +25,12 @@ A simple tool that exposes static folders from your local machine to the web
 - Create a remotely accesible url
 - Expose your local tunnelify server on the remote url
 - Create your custom remote tunnel provider
+- Public, Free and Predefined provider `https://tnlfy.live`
 
 #### WIP
 
-- Public, Free and Predefined provider `https://tnlfy.live`
 - More sophisticated Tunnel management for the Provider
-- Better provider configuration for a more customizable experience
+- Better Provider configuration for a more customizable experience
 
 
 ## Install
@@ -142,4 +142,4 @@ Every contribute is well accepted and the main goal of the project is to provide
 
 PRs are welcome and we are writing down some guidelines and code of conducts along with core code and documentation.
 
-#### We hope to provode a comphensive documentation as we go through the first release we'll do as we reach a first releasable version v0.1
+#### We hope to provode a comphensive documentation as we go through a version `~v1.0.0`
