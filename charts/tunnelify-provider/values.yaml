@@ -7,7 +7,7 @@ ingress: tnlfy.live
 
 image:
   repository: mikesposito/tunnelify-provider
-  tag: 0.0.10
+  tag: 0.1
   pullPolicy: "Always"
   resources:
     requests:
