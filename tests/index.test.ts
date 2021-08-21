@@ -148,8 +148,11 @@ describe("Client & Provider API run", () => {
 		});
 	});
 
-	afterAll(() => {
-		app.stop();
+	afterAll((done) => {
 		provider.stop();
+		app.stop();
+		setTimeout(() => {
+			done();
+		}, 1000);
 	})
 });
