@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import {CommandLineArgs, TunnelifyCli} from "@mikesposito/tunnelify-cli";
 import { TunnelifyLocalServer } from "@mikesposito/tunnelify-local-server";
 import io from 'socket.io-client';

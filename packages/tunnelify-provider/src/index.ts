@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { Server, Socket } from 'socket.io';
 import express, {Application, NextFunction, Request, Response} from 'express';
 import http from 'http';

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { Tunnelify } from "./index";
 
 (async () => {
