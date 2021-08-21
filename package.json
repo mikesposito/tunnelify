@@ -8,7 +8,7 @@
     "start": "lerna run start",
     "test": "npm run build && jest",
     "coverage": "npm run build && jest --collect-coverage",
-    "clean": "lerna clean -y && rm -rf ./packages/**/dist && rm ./packages/**/tsconfig.tsbuildinfo"
+    "clean": "lerna clean -y && rm -rf -f ./packages/**/dist && rm -f ./packages/**/tsconfig.tsbuildinfo"
   },
   "workspaces": [
     "packages/*",
