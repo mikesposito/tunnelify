@@ -3,6 +3,7 @@ import * as http from "http";
 import request from 'supertest';
 import { TunnelifyCli } from "@mikesposito/tunnelify-cli";
 import {binaryParser} from "./helpers/binaryParser";
+import fs from 'fs';
 
 export interface ITunnelifyLocalServer {
 	app: Application,
@@ -32,6 +33,8 @@ export class TunnelifyLocalServer implements ITunnelifyLocalServer {
 
 	mount(path: string): TunnelifyLocalServer {
 		this.mountPoint = path;
+		if(!fs.existsSync(this.mountPoint))
+			throw new Error(`Path ${this.mountPoint} does not exists.`);
 		if(this.cli.command.verbose)
 			this.app.use("/*", (req, res, next) => {
 				this.cli.info(`${req.method} ${req.originalUrl}`);

@@ -42,7 +42,8 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 		this.server = http.createServer(this.app);
 		this.io = new Server(this.server);
 		this.app.use("/health", this._healthCheck.bind(this));
-		this.app.use("/:path", this.handleFileRequest.bind(this));
+		this.app.use("/", this.handleFileRequest.bind(this));
+		this.app.use("/:path?", this.handleFileRequest.bind(this));
 	}
 
 	run(): Promise<TunnelifyProvider> {
@@ -64,18 +65,23 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 	handleConnection(socket: Socket) {
 		const requestedName = socket.handshake.query.name;
 		const name = this._assignName(requestedName ? `${requestedName}-` : null);
-		this.cli.info(`Tunnel ${name} created.`);
 		socket.join(name);
 		this.rooms[name as string] = socket;
 		socket.emit("tunnelified", {
 			name,
 			url: `${name}.${this.cli.command.host}${[80,443].includes(this.port) ? "" : `:${this.port}`}/`
 		});
+		socket.on("disconnect", () => {
+			delete this.rooms[name as string];
+			this.cli.info(`Tunnel ${name} destroyed. (${Object.keys(this.rooms).length} tunnels now)`);
+		});
+		this.cli.info(`Tunnel ${name} created. (${Object.keys(this.rooms).length} tunnels now)`);
 	}
 
 	handleFileRequest(req: Request, res: Response) {
 		const { params: { path }, originalUrl, hostname, method } = req;
 		const prefix = hostname.split(".")[0];
+		this.cli.log(`[${prefix}] ${method} ${originalUrl}`);
 		if(!this.rooms[prefix]) {
 			res.status(404).send(`No server found with name "${prefix}".`);
 			return;
