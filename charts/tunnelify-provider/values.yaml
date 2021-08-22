@@ -4,6 +4,7 @@ replicaCount: 1
 revisionHistoryLimit: 1
 
 ingress: tnlfy.live
+tunnelifyAdditionalCommand: "--storage redis --redisHost tunnelify-provider-redis-service.tunnelify.svc.cluster.local --redisPort 6379"
 
 image:
   repository: mikesposito/tunnelify-provider

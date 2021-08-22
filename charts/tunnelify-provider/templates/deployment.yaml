@@ -35,6 +35,8 @@ spec:
         env:
           - name: TUNNELIFY_HOST
             value : "{{ .Values.ingress }}"
+          - name: TUNNELIFY_COMMAND
+            value: "{{ .Values.tunnelifyAdditionalCommand }}"
         {{- if .Values.image.livenessProbe }}
         livenessProbe:
 {{ toYaml .Values.image.livenessProbe | indent 10 }}
