@@ -12,7 +12,9 @@ Commit messages should be verb based, using the following pattern:
 
 type(scope): Short description...
 
-type can be one of feature, fix, tests, chore, docs etc..
+**type** can be one of feat, fix, tests, chore, docs etc..
+
+**scope** should immediately indicate the file, component or package involved in the commit (more detailed is better)
 
 ### Testing
 
