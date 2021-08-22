@@ -19,14 +19,17 @@
       "@mikesposito/tunnelify-local-server": ["./packages/tunnelify-local-server/src"],
       "@mikesposito/tunnelify-cli": ["./packages/tunnelify-cli/src"],
       "@mikesposito/tunnelify": ["./packages/tunnelify/src"],
-      "@mikesposito/tunnelify-remote": ["./packages/tunnelify-remote/src"]
+      "@mikesposito/tunnelify-provider": ["./packages/tunnelify-provider/src"]
     }
   },
   "references": [
     { "path": "./packages/tunnelify-local-server" },
     { "path": "./packages/tunnelify-cli" },
-    { "path": "./packages/tunnelify-remote" },
+    { "path": "./packages/tunnelify-provider" },
     { "path": "./packages/tunnelify" },
   ],
-  "include": ["./packages/**/src/**/*"]
+  "include": [
+    "./packages/**/src/**/*",
+    "./tests/**/*",
+  ]
 }

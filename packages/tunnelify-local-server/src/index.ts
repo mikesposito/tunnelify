@@ -56,8 +56,8 @@ export class TunnelifyLocalServer implements ITunnelifyLocalServer {
 	}
 
 	stop(): TunnelifyLocalServer {
-		this.server.close();
 		this.connection.close();
+		this.server.close();
 		return this;
 	}
 

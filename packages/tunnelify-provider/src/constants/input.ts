@@ -25,6 +25,18 @@ export const input: CommandLineOption = {
 			alias: 'v',
 			type: Boolean
 		},
+		{
+			name: 'storage',
+			type: String
+		},
+		{
+			name: "redisHost",
+			type: String
+		},
+		{
+			name: "redisPort",
+			type: String
+		}
 	],
 	src: []
 }

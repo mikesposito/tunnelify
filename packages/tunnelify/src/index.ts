@@ -10,11 +10,13 @@ export interface ITunnelify {
 	tunnel: ITunnelifyTunnel;
 	localServer: TunnelifyLocalServer;
 	run(): void;
+	restartTunnel(): void;
 }
 
 export interface ITunnelifyTunnel {
 	url: string;
 	name: string;
+	token?: string;
 }
 
 export class Tunnelify implements ITunnelify {
@@ -41,9 +43,17 @@ export class Tunnelify implements ITunnelify {
 		this._bootstrapTunnel();
 	}
 
+	restartTunnel() {
+		this.io.disconnect();
+		this.io.destroy();
+		this.tunnel = null;
+		this._bootstrapTunnel();
+	}
+
 	stop() {
 		this.localServer.stop();
 		this.io.disconnect();
+		this.io.destroy();
 	}
 
 	private _bootstrapLocalServer() {
@@ -56,9 +66,11 @@ export class Tunnelify implements ITunnelify {
 		const remote = this.cli.command.remote || DEFAULT_REMOTE;
 		const instanceName = this.cli.command.name ? this.cli.command.name : this.cli.command.src.split("/")[this.cli.command.src.split("/").length - 1];
 		this.cli.log(`Tunneling through ${remote}`);
+		const token = this._getEventuallyExistingTunnelToken();
 		this.io = io(remote, {
 			query: {
-				name: instanceName
+				name: instanceName,
+				token
 			}
 		});
 		this.io.on("tunnelified", (tunnel: ITunnelifyTunnel) => this._logTunnelInfo(tunnel));
@@ -67,8 +79,18 @@ export class Tunnelify implements ITunnelify {
 
 	private _logTunnelInfo(tunnel: ITunnelifyTunnel) {
 		this.tunnel = tunnel;
+		if(tunnel.token)
+			this._saveTunnelToken(tunnel.token);
 		this.cli.success(`Tunnel ready`);
 		this.cli.success(`HTTP\t\thttp://${tunnel.url}`);
 		this.cli.success(`HTTPS\t\thttps://${tunnel.url}`);
+	}
+
+	private _getEventuallyExistingTunnelToken(): string {
+		return this.cli.load(`tunnel:${this.cli.command.src}`);
+	}
+
+	private _saveTunnelToken(token: string) {
+		this.cli.save(`tunnel:${this.cli.command.src}`, token);
 	}
 }

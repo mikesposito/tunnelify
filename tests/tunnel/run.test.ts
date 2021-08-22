@@ -1,12 +1,8 @@
-import { Tunnelify } from "../packages/tunnelify/src";
-import { TunnelifyProvider } from "../packages/tunnelify-provider/src";
-import { TunnelifyCli } from "../packages/tunnelify-cli/src";
-import { TunnelifyLocalServer } from "../packages/tunnelify-local-server/src";
-import { input as tunnelifyProviderCliInputs} from "../packages/tunnelify-provider/src/constants/input";
+import { Tunnelify } from "@mikesposito/tunnelify/dist";
+import { TunnelifyProvider } from "@mikesposito/tunnelify-provider/dist";
 import * as fs from 'fs';
 import * as path from 'path';
 import request from "supertest";
-import axios, { AxiosError } from 'axios';
 
 const REMOTE_SELF_URL = "local.127.0.0.1.nip.io";
 const REMOTE_SELF_PORT = 19410;
@@ -17,100 +13,11 @@ let provider: TunnelifyProvider;
 let agent;
 const getTunnelUrl = () => `http://${Object.keys(provider.rooms)[0]}.${REMOTE_SELF_URL}:${REMOTE_SELF_PORT}`;
 
-describe("Client & Provider init validations", () => {
-	it("Provider should return error if initialized without passing host", () => {
-		return new Promise<void>(async (resolve, reject) => {
-			try {
-				const brokenProvider = new TunnelifyProvider({
-					flags: {}
-				});
-				await brokenProvider.run();
-				fail("Should not have arrived there.");
-				reject();
-			} catch(e) {
-				resolve();
-			}
-		})
-	})
-});
-
-describe("Command line run", () => {
-	it("Should call constructors correctly", (done) => {
-		const tunnelifyCli = new TunnelifyCli(tunnelifyProviderCliInputs);
-		const tunnelifyLocalServer = new TunnelifyLocalServer(tunnelifyCli);
-		const tunnelifyInstance = new Tunnelify({
-			src: path.resolve(__dirname, "./__mocks__/local-server"),
-			flags: {
-				silent: true
-			}
-		});
-		done();
-	});
-});
-
-describe("Strange directories name handling", () => {
-	let tunnelify: Tunnelify;
-	let tunnelifyProvider: TunnelifyProvider;
-
-	beforeAll(() => {
-		return new Promise<void>(async (resolve, reject) => {
-			tunnelify = new Tunnelify({
-				src: path.resolve(__dirname, "./__mocks__/MY_strAngeDiR"),
-				flags: {
-					remote: `http://${REMOTE_SELF_URL}:20412`,
-					port: 20411,
-					silent: true,
-					verbose: false
-				}
-			});
-			tunnelifyProvider = new TunnelifyProvider({
-				flags: {
-					host: REMOTE_SELF_URL,
-					port: 20412,
-					silent: true
-				}
-			});
-			await tunnelifyProvider.run();
-			await tunnelify.run();
-			const awaiter = setInterval(() => {
-				// check if there's a tunnel
-				if(tunnelify.tunnel) {
-					clearInterval(awaiter);
-					resolve();
-				}
-			}, 10);
-		});
-	});
-
-	it("Should handle CAPS dirs correctly", () => {
-		return new Promise<void>(async (resolve, reject) => {
-			const tunnelName = tunnelify.tunnel.name;
-			request(`http://${tunnelName}.${REMOTE_SELF_URL}:${20412}`)
-				.get("/file.txt")
-				.then(response => {
-					const realContent = fs.readFileSync(path.resolve(__dirname, "./__mocks__/MY_strAngeDiR/file.txt"), { encoding: "utf-8" });
-					expect(response.status).toBe(200);
-					expect(response.text).toBe(realContent);
-					resolve();
-				})
-				.catch(e => reject(e));
-		});
-	});
-
-	afterAll((done) => {
-		tunnelify.stop();
-		tunnelifyProvider.stop();
-		setTimeout(() => {
-			done();
-		}, 100);
-	})
-});
-
 describe("Client & Provider API run", () => {
 	beforeAll(() => {
 		return new Promise<void>(async (resolve, reject) => {
 			const tunnelify = new Tunnelify({
-				src: path.resolve(__dirname, "./__mocks__/local-server"),
+				src: path.resolve(__dirname, "../__mocks__/local-server"),
 				flags: {
 					remote: `http://${REMOTE_SELF_URL}:${REMOTE_SELF_PORT}`,
 					port: 19411,
@@ -146,7 +53,7 @@ describe("Client & Provider API run", () => {
 		return new Promise<void>((resolve, reject) => {
 			agent.get("/file.txt")
 				.then(response => {
-					const realContent = fs.readFileSync(path.resolve(__dirname, "./__mocks__/local-server/file.txt"), { encoding: "utf-8" });
+					const realContent = fs.readFileSync(path.resolve(__dirname, "../__mocks__/local-server/file.txt"), { encoding: "utf-8" });
 					expect(response.text).toBe(realContent);
 					resolve();
 				})
@@ -202,7 +109,7 @@ describe("Client & Provider API run", () => {
 			request(getTunnelUrl())
 				.get("/file.txt")
 				.then(response => {
-					const realContent = fs.readFileSync(path.resolve(__dirname, "./__mocks__/local-server/file.txt"), { encoding: "utf-8" });
+					const realContent = fs.readFileSync(path.resolve(__dirname, "../__mocks__/local-server/file.txt"), { encoding: "utf-8" });
 					expect(response.status).toBe(200);
 					expect(response.text).toBe(realContent);
 					resolve();
