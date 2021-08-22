@@ -1,6 +1,9 @@
 # tunnelify
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikesposito/tunnelify/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/@mikesposito/tunnelify.svg?style=flat)](https://www.npmjs.com/package/@mikesposito/tunnelify) [![Build Status](https://www.travis-ci.com/mikesposito/tunnelify.svg?branch=master)](https://www.travis-ci.com/mikesposito/tunnelify)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikesposito/tunnelify/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@mikesposito/tunnelify.svg?style=flat)](https://www.npmjs.com/package/@mikesposito/tunnelify)
+[![npm downloads](https://img.shields.io/npm/dm/@mikesposito/tunnelify.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@mikesposito/tunnelify)
+[![Build Status](https://www.travis-ci.com/mikesposito/tunnelify.svg?branch=master)](https://www.travis-ci.com/mikesposito/tunnelify) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mikesposito/tunnelify/blob/master/CONTRIBUTING.md)
 
 A simple tool that exposes static folders from your local machine to the web
 
@@ -11,8 +14,8 @@ A simple tool that exposes static folders from your local machine to the web
 - [Features](#features)
 - [Install](#install)
 - [Usage](#usage)
-    - [Command Line](#with-command-line)
-    - [From another application](#from-another-application)
+  - [Command Line](#with-command-line)
+  - [From another application](#from-another-application)
 - [Use a Custom Remote Domain](#use-a-custom-remote-domain)
 - [Examples](#examples)
 - [Contributing](#contributing)
@@ -25,12 +28,12 @@ A simple tool that exposes static folders from your local machine to the web
 - Create a remotely accesible url
 - Expose your local tunnelify server on the remote url
 - Create your custom remote tunnel provider
+- Public, Free and Predefined provider `https://tnlfy.live`
 
 #### WIP
 
-- Public, Free and Predefined provider `https://tnlfy.live`
 - More sophisticated Tunnel management for the Provider
-- Better provider configuration for a more customizable experience
+- Better Provider configuration for a more customizable experience
 
 
 ## Install
@@ -132,14 +135,19 @@ $ tunnelify-provider -h my-domain.com
 ```
 
 By default, tunnelify-provider will listen on port `9410`, but you can shoose a different port with `-p`:
+
 ```bash
 $ tunnelify-provider -h my-domain.com -p 8080
 ```
 
 ## Contributing
 
-Every contribute is well accepted and the main goal of the project is to provide a solid software.
+The main purpose of this repository is to continue evolving tunnelify core, making it faster and easier to use. Development of tunnelify happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving tunnelify.
 
-PRs are welcome and we are writing down some guidelines and code of conducts along with core code and documentation.
+### [Code of Conduct](CODE_OF_CONDUCT.md)
 
-#### We hope to provode a comphensive documentation as we go through the first release we'll do as we reach a first releasable version v0.1
+tunnelify has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
+
+### [Contributing Guide](CONTRIBUTING.md)
+
+Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to tunnelify.
