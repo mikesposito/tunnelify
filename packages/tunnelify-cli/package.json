@@ -1,6 +1,6 @@
 {
   "name": "@mikesposito/tunnelify-cli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A simple tool that exposes static folders from your local machine to the web",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
