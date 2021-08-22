@@ -28,6 +28,8 @@ A simple tool that exposes static folders from your local machine to the web
   - [Configure Redis (Optional)](#4-configure-redis-to-give-permanent-tunnel-names-optional)
 - [Examples](#examples)
 - [Contributing](#contributing)
+  - [Code of conduct](#code-of-conduct)
+  - [Contributing Guide](#contributing-guide)
 
 ## Features
 
@@ -123,7 +125,7 @@ $ tunnelify -p 3000 ./my-folder
 
 #### With custom Tunnelify Provider:
 ```bash
-$ tunnelify -r https://my-domain.com
+$ tunnelify -r https://my-domain.com ./my-folder
 ```
 
 ## Use a Custom Remote Domain
@@ -139,7 +141,7 @@ $ npm install -g @mikesposito/tunnelify-provider
 
 #### With Docker
 
-If you want to use Docker, you can jump to [run with docker step](#with-docker)
+If you want to use Docker, you can jump to [run with docker step](#run-with-docker)
 
 ### 2. Run Tunnelify Provider
 
