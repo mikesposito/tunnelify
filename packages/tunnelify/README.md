@@ -22,6 +22,8 @@ A simple tool that exposes static folders from your local machine to the web
 - [Use a Custom Remote Domain](#use-a-custom-remote-domain)
   - [Install](#1-install-tunnelify-provider)
   - [Run](#2-run-tunnelify-provider)
+    - [Using NPM](#if-installed-with-npm)
+    - [Using Docker](#run-with-docker)
   - [Configure DNS](#3-configure-dns)
   - [Configure Redis (Optional)](#4-configure-redis-to-give-permanent-tunnel-names-optional)
 - [Examples](#examples)
@@ -136,9 +138,8 @@ $ npm install -g @mikesposito/tunnelify-provider
 ```
 
 #### With Docker
-```bash
-$ docker run -p 9410:9410 mikesposito/tunnelify-provider
-```
+
+If you want to use Docker, you can jump to [run with docker step](#with-docker)
 
 ### 2. Run Tunnelify Provider
 
@@ -147,7 +148,8 @@ $ docker run -p 9410:9410 mikesposito/tunnelify-provider
 $ tunnelify-provider -h <HOSTNAME>
 ```
 Where `<HOSTNAME>` should be your domain.
-#### Example:
+
+Example:
 ```bash
 $ tunnelify-provider -h my-domain.com
 ```
@@ -158,8 +160,12 @@ By default, tunnelify-provider will listen on port `9410`, but you can choose a 
 $ tunnelify-provider -h my-domain.com -p 8080
 ```
 
-### 3. Configure DNS
+#### Run with Docker
+```bash
+$ docker run -p 9410:9410 --env TUNNELIFY_HOST=my-domain.com mikesposito/tunnelify-provider
+```
 
+### 3. Configure DNS
 In order to use the dynamic tunnel name resolution on your doman, you will have to add the following DNS "A" records to your domain:
 
 ```
