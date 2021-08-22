@@ -85,6 +85,8 @@ Tunnelify can also be used from other javascript applications.
 You can use the main Tunnelify class to instantiate a tunnel:
 
 ```javascript
+const { Tunnelify } = require("@mikesposito/tunnelify");
+
 const tunnelify = new Tunnelify({
   src: "/path/to/files",
   flags: {
@@ -120,11 +122,20 @@ $ tunnelify -r https://my-domain.com
 You can create you own remote Tunnelify Provider to expose files on your private domains.
 
 ### 1. Install Tunnelify Provider
+
+#### With NPM
 ```bash
 $ npm install -g @mikesposito/tunnelify-provider
 ```
 
+#### With Docker
+```bash
+$ docker run -p 9410:9410 mikesposito/tunnelify-provider
+```
+
 ### 2. Run Tunnelify Provider
+
+#### If installed with NPM
 ```bash
 $ tunnelify-provider -h <HOSTNAME>
 ```
@@ -134,11 +145,24 @@ Where `<HOSTNAME>` should be your domain.
 $ tunnelify-provider -h my-domain.com
 ```
 
-By default, tunnelify-provider will listen on port `9410`, but you can shoose a different port with `-p`:
+By default, tunnelify-provider will listen on port `9410`, but you can choose a different port with `-p`:
 
 ```bash
 $ tunnelify-provider -h my-domain.com -p 8080
 ```
+
+### 3. Configure Redis to give permanent tunnel names (optional)
+By default, tunnelify-provider will create a new tunnel name for each new connection, event if the client is the same.
+You can optionally configure a Redis server reachable by the provider, to make tunnel names persistent, bound to a token.
+To do that, you have to choose `redis` as **storage** option for the tunnelify-provider command:
+
+```bash
+$ tunnelify-provider -h my-domain --storage redis --redisHost 127.0.0.1 --redisPort 6379
+```
+
+You can use your own host and port values for redis.
+
+**Note:** ATM, `redis` is the only value supported for `--storage` 
 
 ## Contributing
 
