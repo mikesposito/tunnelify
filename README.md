@@ -132,6 +132,7 @@ $ tunnelify-provider -h my-domain.com
 ```
 
 By default, tunnelify-provider will listen on port `9410`, but you can shoose a different port with `-p`:
+
 ```bash
 $ tunnelify-provider -h my-domain.com -p 8080
 ```
@@ -142,8 +143,8 @@ The main purpose of this repository is to continue evolving tunnelify core, maki
 
 ### [Code of Conduct](CODE_OF_CONDUCT.md)
 
-Facebook has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://code.fb.com/codeofconduct) so that you can understand what actions will and will not be tolerated.
+tunnelify has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](CODE_OF_CONDUCT.md) so that you can understand what actions will and will not be tolerated.
 
 ### [Contributing Guide](CONTRIBUTING.md)
 
-Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to tunnelify.
