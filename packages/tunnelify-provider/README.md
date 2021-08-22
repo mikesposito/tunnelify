@@ -15,8 +15,15 @@ A simple tool that exposes static folders from your local machine to the web
 - [Install](#install)
 - [Usage](#usage)
   - [Command Line](#with-command-line)
+    - [Minimal](#minimal)
+    - [Custom Port](#custom-port)
+    - [Custom Remote Provider](#custom-provider)
   - [From another application](#from-another-application)
 - [Use a Custom Remote Domain](#use-a-custom-remote-domain)
+  - [Install](#1-install-tunnelify-provider)
+  - [Run](#2-run-tunnelify-provider)
+  - [Configure DNS](#3-configure-dns)
+  - [Configure Redis (Optional)](#4-configure-redis-to-give-permanent-tunnel-names-optional)
 - [Examples](#examples)
 - [Contributing](#contributing)
 
@@ -90,7 +97,7 @@ const { Tunnelify } = require("@mikesposito/tunnelify");
 const tunnelify = new Tunnelify({
   src: "/path/to/files",
   flags: {
-    remote: `https://tnlfy.live`, 
+    remote: `https://tnlfy.live`,
     port: 32000,
     silent: false | true,
     verbose: false | true
@@ -151,7 +158,21 @@ By default, tunnelify-provider will listen on port `9410`, but you can choose a 
 $ tunnelify-provider -h my-domain.com -p 8080
 ```
 
-### 3. Configure Redis to give permanent tunnel names (optional)
+### 3. Configure DNS
+
+In order to use the dynamic tunnel name resolution on your doman, you will have to add the following DNS "A" records to your domain:
+
+```
+A   <your-server-ip>    @
+A   <your-server-ip>    *.my-domain.com
+```
+
+To use https tunnels, you will have to configure a reverse proxy like NGINX to offload the SSL certificates.
+You can find the Helm Chart we use on our Kubernetes cluster for serving https://tnlfy.live
+
+**Note:** The reverse proxy will need a [wildcard certificate](https://en.wikipedia.org/wiki/Wildcard_certificate) to handle the `*.my-domain.com` dynamic resolution
+
+### 4. Configure Redis to give permanent tunnel names (optional)
 By default, tunnelify-provider will create a new tunnel name for each new connection, event if the client is the same.
 You can optionally configure a Redis server reachable by the provider, to make tunnel names persistent, bound to a token.
 To do that, you have to choose `redis` as **storage** option for the tunnelify-provider command:

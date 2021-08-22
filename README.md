@@ -1,7 +1,7 @@
 # tunnelify
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikesposito/tunnelify/blob/master/LICENSE) 
-[![npm version](https://img.shields.io/npm/v/@mikesposito/tunnelify.svg?style=flat)](https://www.npmjs.com/package/@mikesposito/tunnelify) 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikesposito/tunnelify/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@mikesposito/tunnelify.svg?style=flat)](https://www.npmjs.com/package/@mikesposito/tunnelify)
 [![npm downloads](https://img.shields.io/npm/dm/@mikesposito/tunnelify.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@mikesposito/tunnelify)
 [![Build Status](https://www.travis-ci.com/mikesposito/tunnelify.svg?branch=master)](https://www.travis-ci.com/mikesposito/tunnelify) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mikesposito/tunnelify/blob/master/CONTRIBUTING.md)
 
@@ -15,8 +15,15 @@ A simple tool that exposes static folders from your local machine to the web
 - [Install](#install)
 - [Usage](#usage)
   - [Command Line](#with-command-line)
+    - [Minimal](#minimal)
+    - [Custom Port](#custom-port)
+    - [Custom Remote Provider](#custom-provider)
   - [From another application](#from-another-application)
 - [Use a Custom Remote Domain](#use-a-custom-remote-domain)
+  - [Install](#1-install-tunnelify-provider)
+  - [Run](#2-run-tunnelify-provider)
+  - [Configure DNS](#3-configure-dns)
+  - [Configure Redis (Optional)](#4-configure-redis-to-give-permanent-tunnel-names-optional)
 - [Examples](#examples)
 - [Contributing](#contributing)
 
@@ -151,7 +158,21 @@ By default, tunnelify-provider will listen on port `9410`, but you can choose a 
 $ tunnelify-provider -h my-domain.com -p 8080
 ```
 
-### 3. Configure Redis to give permanent tunnel names (optional)
+### 3. Configure DNS
+
+In order to use the dynamic tunnel name resolution on your doman, you will have to add the following DNS "A" records to your domain:
+
+```
+A   <your-server-ip>    @
+A   <your-server-ip>    *.my-domain.com
+```
+
+To use https tunnels, you will have to configure a reverse proxy like NGINX to offload the SSL certificates.
+You can find the Helm Chart we use on our Kubernetes cluster for serving https://tnlfy.live
+
+**Note:** The reverse proxy will need a [wildcard certificate](https://en.wikipedia.org/wiki/Wildcard_certificate) to handle the `*.my-domain.com` dynamic resolution
+
+### 4. Configure Redis to give permanent tunnel names (optional)
 By default, tunnelify-provider will create a new tunnel name for each new connection, event if the client is the same.
 You can optionally configure a Redis server reachable by the provider, to make tunnel names persistent, bound to a token.
 To do that, you have to choose `redis` as **storage** option for the tunnelify-provider command:
@@ -162,7 +183,7 @@ $ tunnelify-provider -h my-domain --storage redis --redisHost 127.0.0.1 --redisP
 
 You can use your own host and port values for redis.
 
-**Note:** ATM, `redis` is the only value supported for `--storage` 
+**Note:** ATM, `redis` is the only value supported for `--storage`
 
 ## Contributing
 
