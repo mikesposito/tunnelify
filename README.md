@@ -15,7 +15,7 @@ A simple tool that exposes static folders from your local machine to the web
 - [Install](#install)
 - [Usage](#usage)
   - [Command Line](#with-command-line)
-    - [Minimal](#minimal)
+    - [Expose a folder](#with-command-line)
     - [Custom Port](#custom-port)
     - [Custom Remote Provider](#custom-provider)
   - [From another application](#from-another-application)
@@ -102,6 +102,8 @@ You can use `-r <REMOTE_PROVIDER_URL>` to use a different Tunnelify Provider oth
 ```bash
 $ tunnelify -r <REMOTE_PROVIDER_URL> <PATH>
 ```
+
+If you want to use your custom domain when using tunnelify, read section [Use a Custom Remote Domain](#use-a-custom-remote-domain)
 
 ### From another application
 
