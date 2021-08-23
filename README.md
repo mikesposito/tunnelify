@@ -74,6 +74,19 @@ Tunnelify only requires an absolute or relative path of the directory containing
 $ tunnelify <PATH>
 ```
 
+Tunnelify will expose your path on these addresses:
+
+- http://localhost:32000/
+- https://`folder-name`-xxxxx.tnlfy.live/
+
+`xxxxx` will be a random generated string by the remote provider
+
+Instead of `folder-name` you can use a different name using flag `-n` or `--name`:
+
+```bash
+$ tunnelify -n <NAME> <PATH>
+```
+
 #### Custom Port
 
 You can use `-p <PORT>` to use a custom port number for the local server:
