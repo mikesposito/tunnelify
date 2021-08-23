@@ -32,6 +32,9 @@ spec:
           requests:
             cpu: "{{ .Values.image.resources.requests.cpu }}"
             memory: "{{ .Values.image.resources.requests.memory }}"
+          limits:
+            cpu: "{{ .Values.image.resources.limits.cpu }}"
+            memory: "{{ .Values.image.resources.limits.memory }}"
         env:
           - name: TUNNELIFY_HOST
             value : "{{ .Values.ingress }}"
