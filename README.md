@@ -32,6 +32,8 @@ A simple tool that exposes static folders from your local machine to the web
 - [Contributing](#contributing)
   - [Code of conduct](#code-of-conduct)
   - [Contributing Guide](#contributing-guide)
+  - [Good First Issues](#good-first-issues)
+- [License](#license)
 
 ## Features
 
@@ -221,3 +223,11 @@ tunnelify has adopted a Code of Conduct that we expect project participants to a
 ### [Contributing Guide](CONTRIBUTING.md)
 
 Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to tunnelify.
+
+### Good First Issues
+
+To help you get your feet wet and get you familiar with our contribution process, we have a list of [good first issues](https://github.com/mikesposito/tunnelify/labels/good%20first%20issue) that contain bugs which have a relatively limited scope. This is a great place to get started.
+
+## License
+
+Tunnelify is [MIT licensed](./LICENSE).
