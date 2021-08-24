@@ -34,5 +34,5 @@ jobs:
 workflows:
   testing: 
     jobs:
-      - build-and-test
+      - docker-test
       - windows-test
