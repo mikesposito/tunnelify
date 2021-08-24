@@ -18,21 +18,21 @@ jobs:
           command: yarn test
       - codecov/upload:
           file: coverage/coverage-final.json
-  windows-test:
-    executor:
-      name: win/default
-      shell: powershell.exe
-    steps:
-      - checkout
-      - run:
-          name: Install packages
-          command: yarn install
-      - run:
-          name: Run Tests
-          command: yarn test
+#  windows-test:
+#    executor:
+#      name: win/default
+#      shell: powershell.exe
+#    steps:
+#      - checkout
+#      - run:
+#          name: Install packages
+#          command: yarn install
+#      - run:
+#          name: Run Tests
+#          command: yarn test
 
 workflows:
   testing: 
     jobs:
       - docker-test
-      - windows-test
+#      - windows-test
