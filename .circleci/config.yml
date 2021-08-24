@@ -16,9 +16,9 @@ jobs:
           name: Run tests
           command: yarn test
       - codecov/upload:
-          file: ./coverage
+          file: coverage/coverage-final.json
 
 workflows:
-  sample: 
+  testing: 
     jobs:
       - build-and-test
