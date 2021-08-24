@@ -2,10 +2,11 @@ version: 2.1
 
 orbs:
   node: circleci/node@4.1
+  win: circleci/windows@2.2.0
   codecov: codecov/codecov@1.0.2
 
 jobs:
-  build-and-test:  
+  docker-test:
     docker:
       - image: cimg/node:14.16
     steps:
@@ -17,8 +18,21 @@ jobs:
           command: yarn test
       - codecov/upload:
           file: coverage/coverage-final.json
+  windows-test:
+    executor:
+      name: win/default
+      shell: powershell.exe
+    steps:
+      - checkout
+      - run:
+          name: Install packages
+          command: yarn install
+      - run:
+          name: Run Tests
+          command: yarn test
 
 workflows:
   testing: 
     jobs:
       - build-and-test
+      - windows-test
