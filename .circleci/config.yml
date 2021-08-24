@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1
+  codecov: codecov/codecov@1.0.2
+
+jobs:
+  build-and-test:  
+    docker:
+      - image: cimg/node:14.16
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn 
+      - run:
+          name: Run tests
+          command: yarn test
+      - codecov/upload:
+          file: ./coverage
+
+workflows:
+  sample: 
+    jobs:
+      - build-and-test
