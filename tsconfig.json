@@ -1,35 +1,23 @@
 {
+  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "composite": true,
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es6",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "rootDir": "./",
     "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
     "paths": {
-      "@mikesposito/tunnelify-local-server": ["./packages/tunnelify-local-server/src"],
-      "@mikesposito/tunnelify-cli": ["./packages/tunnelify-cli/src"],
-      "@mikesposito/tunnelify": ["./packages/tunnelify/src"],
-      "@mikesposito/tunnelify-provider": ["./packages/tunnelify-provider/src"]
+      "@mikesposito/*": ["packages/*/src"]
     }
   },
   "references": [
-    { "path": "./packages/tunnelify-local-server" },
-    { "path": "./packages/tunnelify-cli" },
-    { "path": "./packages/tunnelify-provider" },
-    { "path": "./packages/tunnelify" },
-  ],
-  "include": [
-    "./packages/**/src/**/*",
-    "./tests/**/*",
+    {
+      "path": "./packages/tunnelify"
+    },
+    {
+      "path": "./packages/tunnelify-local-server"
+    },
+    {
+      "path": "./packages/tunnelify-provider"
+    },
+    {
+      "path": "./packages/tunnelify-cli"
+    }
   ]
 }
