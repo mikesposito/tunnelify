@@ -6,7 +6,7 @@
     "build": "npm run bootstrap && lerna run build",
     "serve": "lerna run serve",
     "start": "lerna run start",
-    "test": "npm run build && jest",
+    "test": "npm run bootstrap && jest",
     "coverage": "npm run build && jest --collect-coverage",
     "clean": "lerna clean -y && rm -rf -f ./packages/**/dist && rm -f ./packages/**/tsconfig.tsbuildinfo"
   },

@@ -1,4 +1,4 @@
-let storage = {};
+export let storage = {};
 
 const client = {
 	end: () => {},

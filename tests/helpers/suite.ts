@@ -1,6 +1,9 @@
-import { Tunnelify } from "@mikesposito/tunnelify/dist/index";
-import { TunnelifyProvider } from "@mikesposito/tunnelify-provider/dist/index";
-import { CommandLineArgs } from "@mikesposito/tunnelify-cli/dist/index";
+import { Tunnelify } from "@mikesposito/tunnelify";
+import { TunnelifyProvider } from "@mikesposito/tunnelify-provider";
+import { CommandLineArgs } from "@mikesposito/tunnelify-cli";
+import portastic from 'portastic';
+
+export const DEFAULT_SELF_HOST = "local.127.0.0.1.nip.io";
 
 export enum ITunnelifyTestSuiteComponentsSelector {
 	ALL = "all",
@@ -80,6 +83,36 @@ export const buildNewSelfTestSuite = async (options: {
 			}
 		}, 10);
 	})
+}
+
+export const buildNewTestProvider = (options = { flags: {} }): Promise<TunnelifyProvider> => {
+	return new Promise(async (resolve, reject) => {
+		try {
+			const freePort = await pickPort(33333);
+			const provider = new TunnelifyProvider({
+				flags: {
+					host: DEFAULT_SELF_HOST,
+					port: freePort,
+					silent: true,
+					verbose: false,
+					...options.flags
+				}
+			});
+			await provider.run();
+			resolve(provider);
+		} catch(e) {
+			reject(e);
+		}
+	})
+}
+
+export const pickPort = (port) => {
+	return new Promise<number>((resolve, reject) => {
+		portastic
+			.test(port)
+			.then(isOpen => resolve(isOpen ? port : pickPort(++port)))
+			.catch(e => reject(e));
+	});
 }
 
 export class TunnelifyTestSuite implements ITunnelifyTestSuite {
