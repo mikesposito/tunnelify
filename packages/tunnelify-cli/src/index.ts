@@ -10,17 +10,15 @@ export type CommandLineOption = {
 }
 
 export type CommandLineArgs = {
-	flags: {
-		host?: string;
-		port?: number;
-		verbose?: boolean;
-		silent?: boolean;
-		remote?: string;
-		name?: string;
-		storage?: string;
-		redisHost?: string;
-		redisPort?: string;
-	};
+	host?: string;
+	port?: number;
+	verbose?: boolean;
+	silent?: boolean;
+	remote?: string;
+	name?: string;
+	storage?: string;
+	redisHost?: string;
+	redisPort?: string;
 	src?: string;
 }
 
@@ -58,7 +56,7 @@ export class TunnelifyCli implements ITunnelifyCli {
 			const main = CommandLineArgs(options.src, { argv, stopAtFirstUnknown: true });
 			this.command = { ...flags, ...main };
 		} else {
-			this.command = { ...options.flags, src: options.src };
+			this.command = { ...options };
 		}
 		return this;
 	}

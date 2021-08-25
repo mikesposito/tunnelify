@@ -10,11 +10,9 @@ describe("@mikesposito/tunnelify-provider/storage/redis", () => {
 		beforeAll( () => {
 			return new Promise<void>(async (resolve, reject) => {
 				provider = await buildNewTestProvider({
-					flags: {
-						storage: "redis",
-						redisHost: "0.0.0.0",
-						redisPort: "0000"
-					}
+					storage: "redis",
+					redisHost: "0.0.0.0",
+					redisPort: "0000"
 				});
 				resolve();
 			})
@@ -54,11 +52,9 @@ describe("@mikesposito/tunnelify-provider/storage/redis", () => {
 		beforeAll( () => {
 			return new Promise<void>(async (resolve, reject) => {
 				provider = await buildNewTestProvider({
-					flags: {
-						storage: "redis",
-						redisHost: "0.0.0.0",
-						redisPort: "0000"
-					}
+					storage: "redis",
+					redisHost: "0.0.0.0",
+					redisPort: "0000"
 				});
 				resolve();
 			})
@@ -86,11 +82,9 @@ describe("@mikesposito/tunnelify-provider/storage/redis", () => {
 		beforeAll( () => {
 			return new Promise<void>(async (resolve, reject) => {
 				provider = await buildNewTestProvider({
-					flags: {
-						storage: "redis",
-						redisHost: "0.0.0.0",
-						redisPort: "0000"
-					}
+					storage: "redis",
+					redisHost: "0.0.0.0",
+					redisPort: "0000"
 				});
 				resolve();
 			})

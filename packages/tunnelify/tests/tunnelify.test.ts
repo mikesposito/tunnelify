@@ -7,10 +7,8 @@ describe("@mikesposito/tunnelify", () => {
 			try {
 				const tunnelify = new Tunnelify({
 					src: path.resolve(__dirname, "./__mocks__/test-instance"),
-					flags: {
-						silent: true,
-						verbose: false
-					}
+					silent: true,
+					verbose: false
 				});
 				expect(tunnelify).toBeDefined();
 				expect(tunnelify.cli).toBeDefined();
@@ -26,10 +24,8 @@ describe("@mikesposito/tunnelify", () => {
 				try {
 					const tunnelify = new Tunnelify({
 						src: path.resolve(__dirname, "./__mocks__/test-instance"),
-						flags: {
-							silent: true,
-							verbose: false
-						}
+						silent: true,
+						verbose: false
 					});
 					await tunnelify.run();
 					tunnelify.stop();
@@ -47,10 +43,8 @@ describe("@mikesposito/tunnelify", () => {
 				try {
 					const tunnelify = new Tunnelify({
 						src: path.resolve(__dirname, "./__mocks__/test-instance"),
-						flags: {
-							silent: true,
-							verbose: false
-						}
+						silent: true,
+						verbose: false
 					});
 					await tunnelify.run();
 					const awaiter = setInterval(() => {

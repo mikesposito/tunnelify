@@ -12,9 +12,7 @@ describe("@mikesposito/tunnelify-provider", () => {
 		it("Should return error without host", () => {
 			return new Promise<void>(async (resolve, reject) => {
 				try {
-					const brokenProvider = new TunnelifyProvider({
-						flags: {}
-					});
+					const brokenProvider = new TunnelifyProvider({});
 					await brokenProvider.run();
 					fail("Should not have arrived there.");
 					reject();
@@ -26,9 +24,7 @@ describe("@mikesposito/tunnelify-provider", () => {
 
 		it("Should setup a Tunnelify Provider", async () => {
 			provider = await buildNewTestProvider({
-				flags: {
-					silent: true
-				}
+				silent: true
 			});
 			return new Promise<void>((resolve, reject) => {
 				request(`http://${provider.cli.command.host}:${provider.cli.command.port}`)

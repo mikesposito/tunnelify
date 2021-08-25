@@ -9,7 +9,7 @@ export interface ITunnelifyLocalServer {
 	app: Application,
 	mountPoint: string,
 	connection: any,
-	agent: any,
+	cli: TunnelifyCli,
 	mount(path: string): TunnelifyLocalServer,
 	listen(port: number): Promise<TunnelifyLocalServer>,
 	stop(): TunnelifyLocalServer,
@@ -20,8 +20,6 @@ export class TunnelifyLocalServer implements ITunnelifyLocalServer {
 	app: Application;
 	server: http.Server;
 	connection: any;
-	agent: any;
-	httpFallback: boolean = false;
 	cli: TunnelifyCli;
 	mountPoint: string;
 

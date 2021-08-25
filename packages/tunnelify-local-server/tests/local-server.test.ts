@@ -56,13 +56,11 @@ describe("@mikesposito/tunnelify-local-server", () => {
 			return new Promise<void>(async (resolve, reject) => {
 				try {
 					const mountPath = path.resolve(__dirname, "./__mocks__/test-instance");
-					const mountPort = await pickPort(22222);
+					const mountPort = await pickPort(20000, 31999);
 					const cli = new TunnelifyCli({
 						src: mountPath,
-						flags: {
-							verbose: false,
-							silent: true
-						}
+						verbose: false,
+						silent: true
 					}, false);
 					const localServer: ITunnelifyLocalServer = new TunnelifyLocalServer(cli);
 					localServer.mount(mountPath);
@@ -79,13 +77,11 @@ describe("@mikesposito/tunnelify-local-server", () => {
 			return new Promise<void>(async (resolve, reject) => {
 				try {
 					const mountPath = path.resolve(__dirname, "./__mocks__/test-instance");
-					const mountPort = await pickPort(22222);
+					const mountPort = await pickPort(20000, 31999);
 					const cli = new TunnelifyCli({
 						src: mountPath,
-						flags: {
-							verbose: false,
-							silent: true
-						}
+						verbose: false,
+						silent: true
 					}, false);
 					const localServer: ITunnelifyLocalServer = new TunnelifyLocalServer(cli);
 					localServer.mount(mountPath);
@@ -111,13 +107,11 @@ describe("@mikesposito/tunnelify-local-server", () => {
 			return new Promise<void>(async (resolve, reject) => {
 				try {
 					const mountPath = path.resolve(__dirname, "./__mocks__/test-instance");
-					const mountPort = await pickPort(22222);
+					const mountPort = await pickPort(20000, 31999);
 					const cli = new TunnelifyCli({
 						src: mountPath,
-						flags: {
-							verbose: false,
-							silent: true
-						}
+						verbose: false,
+						silent: true
 					}, false);
 					const localServer: ITunnelifyLocalServer = new TunnelifyLocalServer(cli);
 					localServer.mount(mountPath);
@@ -138,13 +132,11 @@ describe("@mikesposito/tunnelify-local-server", () => {
 			return new Promise<void>(async (resolve, reject) => {
 				try {
 					const mountPath = path.resolve(__dirname, "./__mocks__/test-instance");
-					const mountPort = await pickPort(22222);
+					const mountPort = await pickPort(20000, 31999);
 					const cli = new TunnelifyCli({
 						src: mountPath,
-						flags: {
-							verbose: false,
-							silent: true
-						}
+						verbose: false,
+						silent: true
 					}, false);
 					const localServer: ITunnelifyLocalServer = new TunnelifyLocalServer(cli);
 					localServer.mount(mountPath);

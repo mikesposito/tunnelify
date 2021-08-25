@@ -53,24 +53,20 @@ export const buildNewSelfTestSuite = async (options: {
 		const testSuite = new TunnelifyTestSuite({
 			components: options.components,
 			provider: {
-				flags: {
-					host: options.selfUrl,
-					port: options.portStart,
-					silent: options.silent,
-					verbose: options.verbose,
-					storage: options.storage,
-					redisHost: options.redisHost,
-					redisPort: options.redisPort
-				}
+				host: options.selfUrl,
+				port: options.portStart,
+				silent: options.silent,
+				verbose: options.verbose,
+				storage: options.storage,
+				redisHost: options.redisHost,
+				redisPort: options.redisPort
 			},
 			client: {
 				src: options.mountPath,
-				flags: {
-					remote: `${options.protocol}://${options.selfUrl}:${options.portStart}`,
-					port: options.portStart + 1,
-					silent: options.silent,
-					verbose: options.verbose
-				}
+				remote: `${options.protocol}://${options.selfUrl}:${options.portStart}`,
+				port: options.portStart + 1,
+				silent: options.silent,
+				verbose: options.verbose
 			}
 		});
 		await testSuite.client.run();
@@ -85,18 +81,16 @@ export const buildNewSelfTestSuite = async (options: {
 	})
 }
 
-export const buildNewTestProvider = (options = { flags: {} }): Promise<TunnelifyProvider> => {
+export const buildNewTestProvider = (options = {}): Promise<TunnelifyProvider> => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const freePort = await pickPort(33333);
+			const freePort = await pickPort(20000, 31999);
 			const provider = new TunnelifyProvider({
-				flags: {
-					host: DEFAULT_SELF_HOST,
-					port: freePort,
-					silent: true,
-					verbose: false,
-					...options.flags
-				}
+				host: DEFAULT_SELF_HOST,
+				port: freePort,
+				silent: true,
+				verbose: false,
+				...options
 			});
 			await provider.run();
 			resolve(provider);
@@ -106,11 +100,12 @@ export const buildNewTestProvider = (options = { flags: {} }): Promise<Tunnelify
 	})
 }
 
-export const pickPort = (port) => {
+export const pickPort = (min, max) => {
 	return new Promise<number>((resolve, reject) => {
+		const randomlyPicked = Math.floor(Math.random() * (max - min) + min);
 		portastic
-			.test(port)
-			.then(isOpen => resolve(isOpen ? port : pickPort(++port)))
+			.test(Math.floor(randomlyPicked))
+			.then(isOpen => resolve(isOpen ? randomlyPicked : pickPort(min, max)))
 			.catch(e => reject(e));
 	});
 }
@@ -152,14 +147,13 @@ export class TunnelifyTestSuite implements ITunnelifyTestSuite {
 
 	private _initProvider(options: CommandLineArgs) {
 		this.provider = new TunnelifyProvider({
-			flags: { ...options.flags }
+			...options
 		});
 	}
 
 	private _initClient(options: CommandLineArgs) {
 		this.client = new Tunnelify({
-			src: options.src,
-			flags: { ...options.flags }
+			...options
 		})
 	}
 }

@@ -119,13 +119,11 @@ You can use the main Tunnelify class to instantiate a tunnel:
 const { Tunnelify } = require("@mikesposito/tunnelify");
 
 const tunnelify = new Tunnelify({
-  src: "/path/to/files",
-  flags: {
-    remote: `https://tnlfy.live`, 
-    port: 32000,
-    silent: false | true,
-    verbose: false | true
-  }
+  src: "./path/to/files",
+  remote: `https://tnlfy.live`,
+  port: 32000,
+  silent: false,
+  verbose: false
 });
 
 tunnelify.run();
