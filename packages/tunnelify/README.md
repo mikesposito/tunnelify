@@ -3,7 +3,9 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikesposito/tunnelify/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/@mikesposito/tunnelify.svg?style=flat)](https://www.npmjs.com/package/@mikesposito/tunnelify)
 [![npm downloads](https://img.shields.io/npm/dm/@mikesposito/tunnelify.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@mikesposito/tunnelify)
-[![Build Status](https://www.travis-ci.com/mikesposito/tunnelify.svg?branch=master)](https://www.travis-ci.com/mikesposito/tunnelify) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mikesposito/tunnelify/blob/master/CONTRIBUTING.md)
+[![Build Status](https://www.travis-ci.com/mikesposito/tunnelify.svg?branch=master)](https://www.travis-ci.com/mikesposito/tunnelify)
+![CodeQL](https://github.com/mikesposito/tunnelify/actions/workflows/codeql-analysis.yml/badge.svg)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mikesposito/tunnelify/blob/master/CONTRIBUTING.md)
 
 A simple tool that exposes static folders from your local machine to the web
 
@@ -15,7 +17,7 @@ A simple tool that exposes static folders from your local machine to the web
 - [Install](#install)
 - [Usage](#usage)
   - [Command Line](#with-command-line)
-    - [Minimal](#minimal)
+    - [Expose a folder](#with-command-line)
     - [Custom Port](#custom-port)
     - [Custom Remote Provider](#custom-provider)
   - [From another application](#from-another-application)
@@ -28,6 +30,10 @@ A simple tool that exposes static folders from your local machine to the web
   - [Configure Redis (Optional)](#4-configure-redis-to-give-permanent-tunnel-names-optional)
 - [Examples](#examples)
 - [Contributing](#contributing)
+  - [Code of conduct](#code-of-conduct)
+  - [Contributing Guide](#contributing-guide)
+  - [Good First Issues](#good-first-issues)
+- [License](#license)
 
 ## Features
 
@@ -72,6 +78,19 @@ Tunnelify only requires an absolute or relative path of the directory containing
 $ tunnelify <PATH>
 ```
 
+Tunnelify will expose your path on these addresses:
+
+- http://localhost:32000/
+- https://`folder-name`-xxxxx.tnlfy.live/
+
+`xxxxx` will be a random generated string by the remote provider
+
+Instead of `folder-name` you can use a different name using flag `-n` or `--name`:
+
+```bash
+$ tunnelify -n <NAME> <PATH>
+```
+
 #### Custom Port
 
 You can use `-p <PORT>` to use a custom port number for the local server:
@@ -87,6 +106,8 @@ You can use `-r <REMOTE_PROVIDER_URL>` to use a different Tunnelify Provider oth
 ```bash
 $ tunnelify -r <REMOTE_PROVIDER_URL> <PATH>
 ```
+
+If you want to use your custom domain when using tunnelify, read section [Use a Custom Remote Domain](#use-a-custom-remote-domain)
 
 ### From another application
 
@@ -123,7 +144,7 @@ $ tunnelify -p 3000 ./my-folder
 
 #### With custom Tunnelify Provider:
 ```bash
-$ tunnelify -r https://my-domain.com
+$ tunnelify -r https://my-domain.com ./my-folder
 ```
 
 ## Use a Custom Remote Domain
@@ -139,7 +160,7 @@ $ npm install -g @mikesposito/tunnelify-provider
 
 #### With Docker
 
-If you want to use Docker, you can jump to [run with docker step](#with-docker)
+If you want to use Docker, you can jump to [run with docker step](#run-with-docker)
 
 ### 2. Run Tunnelify Provider
 
@@ -202,3 +223,11 @@ tunnelify has adopted a Code of Conduct that we expect project participants to a
 ### [Contributing Guide](CONTRIBUTING.md)
 
 Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to tunnelify.
+
+### Good First Issues
+
+To help you get your feet wet and get you familiar with our contribution process, we have a list of [good first issues](https://github.com/mikesposito/tunnelify/labels/good%20first%20issue) that contain bugs which have a relatively limited scope. This is a great place to get started.
+
+## License
+
+Tunnelify is [MIT licensed](./LICENSE).
