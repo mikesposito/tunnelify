@@ -1,6 +1,6 @@
 {
   "name": "@mikesposito/tunnelify-cli",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Expose static files and folders to an https url with one command",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
