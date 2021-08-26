@@ -159,10 +159,14 @@ export class TunnelifyProvider implements ITunnelifyProvider {
 	}
 
 	private _assignName(requestedName, length: number = 5): string {
-		let generated = `${requestedName || ""}${this._generateRandomName(length)}`;
-		while(this.rooms[generated]) {
-			generated = `${requestedName || ""}${this._generateRandomName(length)}`;
+		const parts = [
+			requestedName ? requestedName : this._generateRandomName(length),
+			"-",
+			this._generateRandomName(length)
+		];
+		while(this.rooms[parts.reduce((a, v) => a + v, "")]) {
+			parts[2] = this._generateRandomName(length);
 		}
-		return generated;
+		return parts.reduce((a, v) => a + v, "");
 	}
 }

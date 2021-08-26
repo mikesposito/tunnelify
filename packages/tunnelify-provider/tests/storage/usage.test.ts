@@ -30,8 +30,8 @@ describe("@mikesposito/tunnelify-provider/storage", () => {
 					}
 				);
 				socketConnection.on("tunnelified", tunnel => {
-					expect(tunnel).toHaveProperty("token");
 					socketConnection.close();
+					expect(tunnel).toHaveProperty("token");
 					resolve();
 				});
 			} catch(e) {
@@ -52,8 +52,8 @@ describe("@mikesposito/tunnelify-provider/storage", () => {
 					}
 				);
 				socketConnection.on("tunnelified", tunnel => {
-					expect(tunnel).toHaveProperty("token");
 					socketConnection.close();
+					expect(tunnel).toHaveProperty("token");
 					const newSocketConnection = io(
 						`http://${provider.cli.command.host}:${provider.cli.command.port}`,
 						{
@@ -64,9 +64,9 @@ describe("@mikesposito/tunnelify-provider/storage", () => {
 						}
 					)
 					newSocketConnection.on("tunnelified", (newTunnel) => {
+						newSocketConnection.close();
 						expect(newTunnel.name).toBe(tunnel.name);
 						expect(newTunnel.token).toBe(tunnel.token);
-						newSocketConnection.close();
 						resolve();
 					})
 				});

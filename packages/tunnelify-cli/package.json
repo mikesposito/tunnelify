@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "serve": "tsc --watch -p tsconfig.build.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "files": [
     "dist"
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/mikesposito/tunnelify#readme",
   "dependencies": {
     "colorts": "^0.1.63",
-    "command-line-args": "^5.2.0"
+    "command-line-args": "^5.2.0",
+    "command-line-usage": "^6.1.1"
   }
 }

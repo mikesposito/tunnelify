@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import * as http from "http";
 import request from 'supertest';
 import { TunnelifyCli } from "@mikesposito/tunnelify-cli";
-import {binaryParser} from "./helpers/binaryParser";
+import { binaryParser } from "./helpers/binaryParser";
 import fs from 'fs';
 
 export interface ITunnelifyLocalServer {
@@ -18,10 +18,10 @@ export interface ITunnelifyLocalServer {
 
 export class TunnelifyLocalServer implements ITunnelifyLocalServer {
 	app: Application;
+	mountPoint: string;
 	server: http.Server;
 	connection: any;
 	cli: TunnelifyCli;
-	mountPoint: string;
 
 	constructor(cli: TunnelifyCli) {
 		this.app = express();
@@ -44,13 +44,17 @@ export class TunnelifyLocalServer implements ITunnelifyLocalServer {
 
 	listen(port: number): Promise<TunnelifyLocalServer> {
 		return new Promise((resolve, reject) => {
-			this.server = http.createServer();
-			const connection = this.app.listen(port, () => {
-				this.cli.success(`Serving path ${this.mountPoint}`);
-				this.connection = connection;
-				resolve(this);
-			});
-		})
+			try {
+				this.server = http.createServer();
+				this.connection = this.app.listen(port, () => {
+					this.cli.success(`Serving path ${this.mountPoint}`);
+					resolve(this);
+				});
+			} catch(e) {
+				this.cli.error(e);
+				reject(e);
+			}
+		});
 	}
 
 	stop(): TunnelifyLocalServer {
@@ -59,24 +63,28 @@ export class TunnelifyLocalServer implements ITunnelifyLocalServer {
 		return this;
 	}
 
-	async handleRemoteFileRequest(method: string, file: string, callback: any) {
-		try {
-			this.cli.info(`${method} ${file}`);
-			request.agent(this.app)[method.toLowerCase()](file)
-				.buffer()
-				.parse(binaryParser)
-				.end((err, res) => {
-					if(res.status === 404 || err)
-						callback({ error: res.status });
-					else
-						callback({
-							file: res.body,
-							type: res.headers["content-type"]
-						});
-				});
-		} catch(e) {
-			this.cli.error(e);
-			callback({ error: e });
-		}
+	handleRemoteFileRequest(method: string, file: string, callback: any): Promise<void> {
+		return new Promise<void>((resolve, reject) => {
+			try {
+				this.cli.info(`${method} ${file}`);
+				request.agent(this.app)[method.toLowerCase()](file)
+					.buffer()
+					.parse(binaryParser)
+					.end((err, res) => {
+						if(res.status === 404 || err)
+							callback({ error: res.status });
+						else
+							callback({
+								file: res.body,
+								type: res.headers["content-type"]
+							});
+						resolve();
+					});
+			} catch(e) {
+				this.cli.error(e);
+				callback({ error: e });
+				reject();
+			}
+		});
 	}
 }

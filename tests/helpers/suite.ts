@@ -88,8 +88,8 @@ export const buildNewTestProvider = (options = {}): Promise<TunnelifyProvider> =
 			const provider = new TunnelifyProvider({
 				host: DEFAULT_SELF_HOST,
 				port: freePort,
-				silent: true,
-				verbose: false,
+				silent: false,
+				verbose: true,
 				...options
 			});
 			await provider.run();

@@ -28,7 +28,7 @@
     "start": "node dist/index.js",
     "build": "tsc -p tsconfig.build.json",
     "serve": "tsc -p tsconfig.build.json --watch",
-    "test": "jest --collect-coverage"
+    "test": "jest"
   },
   "author": "Michele Esposito<michele@esposito.codes>",
   "license": "MIT",

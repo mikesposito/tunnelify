@@ -23,9 +23,7 @@ describe("@mikesposito/tunnelify-provider", () => {
 		});
 
 		it("Should setup a Tunnelify Provider", async () => {
-			provider = await buildNewTestProvider({
-				silent: true
-			});
+			provider = await buildNewTestProvider();
 			return new Promise<void>((resolve, reject) => {
 				request(`http://${provider.cli.command.host}:${provider.cli.command.port}`)
 					.get(`/health`)

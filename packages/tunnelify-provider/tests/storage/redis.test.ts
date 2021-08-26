@@ -3,10 +3,9 @@ jest.mock("redis", () => redis);
 import { TunnelifyProvider } from "../../src";
 import { buildNewTestProvider } from "../../../../tests/helpers/suite";
 
-let provider: TunnelifyProvider;
-
 describe("@mikesposito/tunnelify-provider/storage/redis", () => {
 	describe("constructor()", () => {
+		let provider: TunnelifyProvider;
 		beforeAll( () => {
 			return new Promise<void>(async (resolve, reject) => {
 				provider = await buildNewTestProvider({
@@ -49,6 +48,7 @@ describe("@mikesposito/tunnelify-provider/storage/redis", () => {
 	});
 
 	describe("set()", () => {
+		let provider: TunnelifyProvider;
 		beforeAll( () => {
 			return new Promise<void>(async (resolve, reject) => {
 				provider = await buildNewTestProvider({
@@ -79,6 +79,7 @@ describe("@mikesposito/tunnelify-provider/storage/redis", () => {
 	})
 
 	describe("get()", () => {
+		let provider: TunnelifyProvider;
 		beforeAll( () => {
 			return new Promise<void>(async (resolve, reject) => {
 				provider = await buildNewTestProvider({
