@@ -3,7 +3,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mikesposito/tunnelify/blob/master/LICENSE)
 [![npm version](https://img.shields.io/npm/v/@mikesposito/tunnelify.svg?style=flat)](https://www.npmjs.com/package/@mikesposito/tunnelify)
 [![npm downloads](https://img.shields.io/npm/dm/@mikesposito/tunnelify.svg?style=flat-square)](http://npm-stat.com/charts.html?package=@mikesposito/tunnelify)
-[![Build Status](https://www.travis-ci.com/mikesposito/tunnelify.svg?branch=master)](https://www.travis-ci.com/mikesposito/tunnelify)
+[![CircleCI](https://circleci.com/gh/mikesposito/tunnelify.svg?style=shield)](https://circleci.com/gh/mikesposito/tunnelify)
 [![codecov](https://codecov.io/gh/mikesposito/tunnelify/branch/master/graph/badge.svg?token=PY666PN5RM)](https://codecov.io/gh/mikesposito/tunnelify)
 ![CodeQL](https://github.com/mikesposito/tunnelify/actions/workflows/codeql-analysis.yml/badge.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/mikesposito/tunnelify/blob/master/CONTRIBUTING.md)

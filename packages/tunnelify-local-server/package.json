@@ -1,7 +1,7 @@
 {
   "name": "@mikesposito/tunnelify-local-server",
   "version": "0.3.0",
-  "description": "A simple tool that exposes static folders from your local machine to the web",
+  "description": "Expose static files and folders to an https url with one command",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {
