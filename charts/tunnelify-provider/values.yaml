@@ -8,7 +8,7 @@ tunnelifyAdditionalCommand: "--storage redis --redisHost tunnelify-provider-redi
 
 image:
   repository: mikesposito/tunnelify-provider
-  tag: 0.2.0
+  tag: 0.3.1
   pullPolicy: "Always"
   resources:
     requests:
